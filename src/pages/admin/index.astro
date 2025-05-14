@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Content Manager</title>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // Wait for the CMS script to load
+      window.addEventListener('load', () => {
+        if (window.CMS) {
+          // Register the local media library
+          window.CMS.registerMediaLibrary({
+            name: 'local',
+            init: () => ({
+              showMediaLibrary: () => {
+                // Implementation for showing media library
+                console.log('Media library opened');
+              },
+              hideMediaLibrary: () => {
+                // Implementation for hiding media library
+                console.log('Media library closed');
+              },
+              enableStandalone: () => {
+                // Implementation for enabling standalone mode
+                return true;
+              }
+            })
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

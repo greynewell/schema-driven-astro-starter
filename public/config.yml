@@ -1,0 +1,22 @@
+# when using the default proxy server port
+local_backend: true
+
+backend:
+  name: git-gateway
+  local_backend: true
+  auth: false
+
+media_folder: "public/images"
+media_library:
+  name: local
+  config:
+    endpoint: http://localhost:8080
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "src/pages/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - name: "title"

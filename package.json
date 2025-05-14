@@ -6,9 +6,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cms-proxy": "netlify-cms-proxy-server"
   },
   "dependencies": {
-    "astro": "^5.7.13"
+    "astro": "^5.7.13",
+    "decap-cms-app": "^3.6.2"
+  },
+  "devDependencies": {
+    "netlify-cms-proxy-server": "^1.3.24"
   }
 }
