@@ -3,9 +3,16 @@ import type { Website } from '../types/website';
 import website from '../data/website/website.json';
 import JsonLd from '../components/JsonLd.astro';
 import Meta from '../components/Meta.astro';
+import { getCollection } from 'astro:content';
 
 // Type assertion to ensure website data matches our interface
 const websiteData = website as Website;
+
+// Get the markdown content
+const contentEntries = await getCollection('pages');
+console.log('Content entries:', contentEntries);
+const content = contentEntries.find(entry => entry.slug === 'index');
+console.log('Found content:', content);
 ---
 
 <html lang={websiteData.inLanguage}>
@@ -54,11 +61,15 @@ const websiteData = website as Website;
 
 		<!-- Main Content Area -->
 		<main>
-			<!-- Space for future content -->
-			<section class="hero">
-				<h2>Welcome to {websiteData.name}</h2>
-				<p>Main content will go here</p>
-			</section>
+			<article>
+				{content && content.rendered ? (
+					<>
+						<div class="content" set:html={content.rendered.html} />
+					</>
+				) : (
+					<p>No content found</p>
+				)}
+			</article>
 		</main>
 
 		<!-- Footer Section -->
