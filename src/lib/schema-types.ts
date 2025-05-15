@@ -226,6 +226,18 @@ export function generateWebSiteConfig(): string {
       ]
     },
     {
+      name: 'sameAs',
+      label: 'Social Media Links',
+      widget: 'list',
+      field: {
+        name: 'url',
+        label: 'URL',
+        widget: 'string',
+        pattern: ['^https?://.+', 'Must be a valid URL starting with http:// or https://']
+      },
+      hint: 'Add links to your social media profiles (e.g., Twitter, LinkedIn, GitHub)'
+    },
+    {
       name: 'audience',
       label: 'Audience',
       widget: 'object',
