@@ -1,7 +1,7 @@
 {
   "name": "schema-driven-astro-starter",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A modern, schema-driven website built with Astro and Decap CMS, featuring structured data and a powerful content management system.",
   "author": {
     "name": "Grey Newell",
