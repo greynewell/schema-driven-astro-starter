@@ -71,13 +71,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
-      - name: Publish to GitHub Packages
-        run: |
-          npm config set @greynewell:registry https://npm.pkg.github.com
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
