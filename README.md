@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/greynewell/schema-driven-astro-starter?style=social)](https://github.com/greynewell/schema-driven-astro-starter/stargazers)
 [![npm version](https://img.shields.io/npm/v/schema-driven-astro-starter)](https://www.npmjs.com/package/schema-driven-astro-starter)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/greynewell/schema-driven-astro-starter/ci.yml)](https://github.com/greynewell/schema-driven-astro-starter/actions)
+[![Publish Package](https://github.com/greynewell/schema-driven-astro-starter/actions/workflows/build.yml/badge.svg)](https://github.com/greynewell/schema-driven-astro-starter/actions/workflows/build.yml)
 
 A production-ready starter kit that brings structured data, SEO optimization, and schema-driven development to your Astro projects. Built for developers who want to ship fast, maintainable, and search-engine friendly websites.
 
