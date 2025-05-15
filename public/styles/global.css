@@ -96,6 +96,16 @@ nav {
 	fill: #666;
 }
 
+.search-icon.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.search-icon.disabled:hover {
+	background: #f5f5f5;
+}
+
 /* Footer Styles */
 footer {
 	background: #f5f5f5;

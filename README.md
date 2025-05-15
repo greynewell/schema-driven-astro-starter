@@ -29,7 +29,7 @@ npm run dev
 
 ## 📚 Documentation & Tutorials
 
-- [Getting Started Guide](https://your-docs-url.com/getting-started)
+- [Getting Started Guide](https://greynewell.github.io/schema-driven-astro-starter/)
 - [Schema Definition](https://schema.org/WebSite)
 - [Deployment Guide](https://github.com/withastro/action)
 
