@@ -1,16 +1,19 @@
 ---
-
+import website from '../data/website/website.json';
 ---
 
-<html lang="en">
+<html lang={website.inLanguage}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{website.name}</title>
+		<meta name="description" content={website.description} />
+		<script type="application/ld+json" set:html={JSON.stringify(website)} />
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>{website.name}</h1>
+		<p>{website.description}</p>
 	</body>
 </html>
