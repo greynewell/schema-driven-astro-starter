@@ -1,47 +1,89 @@
-# Astro Starter Kit: Minimal
+# Schema-Driven Astro Starter Kit
 
-```sh
-npm create astro@latest -- --template minimal
+A production-ready starter kit that brings structured data, SEO optimization, and schema-driven development to your Astro projects. Built for developers who want to ship fast, maintainable, and search-engine friendly websites.
+
+## 🎯 Why This Starter Kit?
+
+- **Schema-First Development**: Define your data structures once, use them everywhere. No more prop drilling or type mismatches.
+- **Decap CMS Integration**: Git-based content management with a user-friendly admin interface. Edit content directly in your browser, commit changes to your repository.
+- **SEO Optimized**: Built-in structured data and meta tags that search engines love.
+- **Type Safety**: Full TypeScript support with generated types from your schemas.
+- **Performance**: Astro's zero JavaScript by default approach means your site loads instantly.
+- **Developer Experience**: Hot reloading, type checking, and intuitive development workflow.
+
+## 🚀 Quick Start
+
+```bash
+# Create a new project using this template
+npm create astro@latest my-project -- --template https://github.com/greynewell/schema-driven-astro-starter
+
+# Navigate to your project
+cd my-project
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## 📚 Documentation & Tutorials
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- [Getting Started Guide](https://your-docs-url.com/getting-started)
+- [Schema Definition](https://schema.org/WebSite)
+- [Deployment Guide](https://github.com/withastro/action)
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 🏗️ Project Structure
 
 ```text
 /
-├── public/
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/     # Reusable UI components
+│   ├── layouts/        # Page layouts
+│   ├── pages/          # Route components
+│   ├── schemas/        # Your data schemas
+│   └── utils/          # Helper functions
+├── public/             # Static assets
+└── astro.config.mjs    # Astro configuration
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🚢 Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### GitHub Pages
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Push your code to GitHub
+2. Enable GitHub Pages in your repository settings
+3. Set the build command to `npm run build`
+4. Set the output directory to `dist`
 
-## 🧞 Commands
+```bash
+# Build your site
+npm run build
 
-All commands are run from the root of the project, from a terminal:
+# Preview the production build
+npm run preview
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## 🛠️ Available Scripts
 
-## 👀 Want to learn more?
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run check` | Type check your code |
+| `npm run format` | Format your code |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🤝 Contributing
+
+Found a bug? Have a feature request? We'd love to hear from you! Please open an issue or submit a pull request.
+
+## 📄 License
+
+MIT License - feel free to use this starter kit for any project, commercial or personal.
+
+## 🔗 Links
+
+- [Astro Documentation](https://docs.astro.build)
+- [Schema.org](https://schema.org)
+- [JAMstack](https://jamstack.org)
