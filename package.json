@@ -1,7 +1,7 @@
 {
   "name": "schema-driven-astro-starter",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A modern, schema-driven website built with Astro and Decap CMS, featuring structured data and a powerful content management system.",
   "author": {
     "name": "Grey Newell",
@@ -42,13 +42,8 @@
     "cms-proxy": "netlify-cms-proxy-server",
     "generate-cms": "tsx src/lib/generate-cms-config.ts",
     "prepublishOnly": "npm run build",
-    "version": "git add -A src",
-    "postversion": "git push && git push --tags",
     "check": "tsc --noEmit",
-    "lint": "eslint . --ext .ts,.tsx,.astro",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "publish": "changeset publish"
+    "lint": "eslint . --ext .ts,.tsx,.astro"
   },
   "dependencies": {
     "astro": "^5.7.13",
@@ -57,7 +52,6 @@
     "schema-dts": "^1.1.5"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
     "@types/js-yaml": "^4.0.9",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",

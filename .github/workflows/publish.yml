@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   validate:
@@ -21,7 +18,9 @@ jobs:
           cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+        env:
+          NODE_ENV: production
       
       - name: Type check
         run: npm run check || true
@@ -57,7 +56,9 @@ jobs:
             NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
+        env:
+          NODE_ENV: production
       
       - name: Build
         run: npm run build
