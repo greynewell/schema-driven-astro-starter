@@ -1,16 +1,38 @@
 ---
+import type { Website } from '../types/website';
 import website from '../data/website/website.json';
+import JsonLd from '../components/JsonLd.astro';
+import Meta from '../components/Meta.astro';
+import { getCollection } from 'astro:content';
+
+// Type assertion to ensure website data matches our interface
+const websiteData = website as Website;
+
+// Get the markdown content
+const contentEntries = await getCollection('pages');
+console.log('Content entries:', contentEntries);
+const content = contentEntries.find(entry => entry.slug === 'index');
+console.log('Found content:', content);
 ---
 
-<html lang={website.inLanguage}>
+<html lang={websiteData.inLanguage}>
 	<head>
-		<meta charset="utf-8" />
+		<Meta
+			title={websiteData.name}
+			description={websiteData.description}
+			url={websiteData.url}
+			image={websiteData.thumbnailUrl}
+			author={websiteData.author}
+			publisher={websiteData.publisher}
+			datePublished={websiteData.datePublished}
+			dateModified={websiteData.dateModified}
+			keywords={websiteData.keywords}
+			language={websiteData.inLanguage}
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{website.name}</title>
-		<meta name="description" content={website.description} />
-		<script type="application/ld+json" set:html={JSON.stringify(website)} />
+		<JsonLd data={websiteData} />
 		<link rel="stylesheet" href="/styles/global.css" />
 	</head>
 	<body>
@@ -18,16 +40,16 @@ import website from '../data/website/website.json';
 		<header>
 			<nav>
 				<div class="site-branding">
-					<h1>{website.name}</h1>
+					<h1>{websiteData.name}</h1>
 				</div>
 				
 				<ul class="nav-links">
-					{website.keywords?.map((keyword) => (
+					{websiteData.keywords?.map((keyword) => (
 						<li><a href={`#${keyword.toLowerCase().replace(/\s+/g, '-')}`}>{keyword}</a></li>
 					))}
 				</ul>
 
-				{website.potentialAction?.map((action) => (
+				{websiteData.potentialAction?.map((action) => (
 					<a href={action.target} class="search-icon" rel="search" title="Search">
 						<svg viewBox="0 0 24 24">
 							<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -39,11 +61,15 @@ import website from '../data/website/website.json';
 
 		<!-- Main Content Area -->
 		<main>
-			<!-- Space for future content -->
-			<section class="hero">
-				<h2>Welcome to {website.name}</h2>
-				<p>Main content will go here</p>
-			</section>
+			<article>
+				{content && content.rendered ? (
+					<>
+						<div class="content" set:html={content.rendered.html} />
+					</>
+				) : (
+					<p>No content found</p>
+				)}
+			</article>
 		</main>
 
 		<!-- Footer Section -->
@@ -53,19 +79,19 @@ import website from '../data/website/website.json';
 					<h2>About This Site</h2>
 					<dl>
 						<dt>Language</dt>
-						<dd>{website.inLanguage}</dd>
+						<dd>{websiteData.inLanguage}</dd>
 						<dt>Version</dt>
-						<dd>{website.version}</dd>
-						{website.datePublished && (
+						<dd>{websiteData.version}</dd>
+						{websiteData.datePublished && (
 							<>
 								<dt>Published</dt>
-								<dd><time datetime={website.datePublished}>{new Date(website.datePublished).toLocaleDateString()}</time></dd>
+								<dd><time datetime={websiteData.datePublished}>{new Date(websiteData.datePublished).toLocaleDateString()}</time></dd>
 							</>
 						)}
-						{website.dateModified && (
+						{websiteData.dateModified && (
 							<>
 								<dt>Last Modified</dt>
-								<dd><time datetime={website.dateModified}>{new Date(website.dateModified).toLocaleDateString()}</time></dd>
+								<dd><time datetime={websiteData.dateModified}>{new Date(websiteData.dateModified).toLocaleDateString()}</time></dd>
 							</>
 						)}
 					</dl>
@@ -73,41 +99,41 @@ import website from '../data/website/website.json';
 
 				<section aria-label="Site Credits">
 					<h2>Credits</h2>
-					{website.author && (
+					{websiteData.author && (
 						<div>
 							<h3>Author</h3>
-							<p>{website.author.name}</p>
-							{website.author.url && (
-								<a href={website.author.url}>Author's Website</a>
+							<p>{websiteData.author.name}</p>
+							{websiteData.author.url && (
+								<a href={websiteData.author.url}>Author's Website</a>
 							)}
 						</div>
 					)}
 
-					{website.publisher && (
+					{websiteData.publisher && (
 						<div>
 							<h3>Publisher</h3>
-							<p>{website.publisher.name}</p>
-							{website.publisher.url && (
-								<a href={website.publisher.url}>Publisher's Website</a>
+							<p>{websiteData.publisher.name}</p>
+							{websiteData.publisher.url && (
+								<a href={websiteData.publisher.url}>Publisher's Website</a>
 							)}
 						</div>
 					)}
 
-					{website.license && (
+					{websiteData.license && (
 						<div>
 							<h3>License</h3>
-							<p>{website.license}</p>
+							<p>{websiteData.license}</p>
 						</div>
 					)}
 				</section>
 
-				{website.accessibilitySummary && (
+				{websiteData.accessibilitySummary && (
 					<section aria-label="Accessibility">
 						<h2>Accessibility</h2>
-						<p>{website.accessibilitySummary}</p>
-						{website.accessibilityFeature && website.accessibilityFeature.length > 0 && (
+						<p>{websiteData.accessibilitySummary}</p>
+						{websiteData.accessibilityFeature && websiteData.accessibilityFeature.length > 0 && (
 							<ul>
-								{website.accessibilityFeature.map((feature) => (
+								{websiteData.accessibilityFeature.map((feature) => (
 									<li>{feature}</li>
 								))}
 							</ul>
