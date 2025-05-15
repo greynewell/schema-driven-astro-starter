@@ -8,8 +8,6 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const templatesDir = join(__dirname, 'templates');
-
 // Create project directory
 const projectName = process.argv[2];
 if (!projectName) {
@@ -27,7 +25,23 @@ if (fs.existsSync(projectDir)) {
 
 // Copy template files
 fs.mkdirSync(projectDir);
-fs.cpSync(templatesDir, projectDir, { recursive: true });
+[
+  'src',
+  'public',
+  'astro.config.mjs',
+  'package.json',
+  'tsconfig.json',
+  'tsconfig.node.json',
+  '.eslintrc.cjs'
+].forEach(file => {
+  fs.cpSync(join(__dirname, file), join(projectDir, file), { recursive: true });
+});
+
+// Ensure content directory exists
+const contentDir = join(projectDir, 'src', 'content');
+if (!fs.existsSync(contentDir)) {
+  fs.mkdirSync(contentDir, { recursive: true });
+}
 
 // Initialize git repository
 execSync('git init', { cwd: projectDir });
@@ -35,6 +49,10 @@ execSync('git init', { cwd: projectDir });
 // Install dependencies
 console.log('Installing dependencies...');
 execSync('npm install', { cwd: projectDir, stdio: 'inherit' });
+
+// Generate content types
+console.log('Generating content types...');
+execSync('npx astro sync', { cwd: projectDir, stdio: 'inherit' });
 
 console.log(`
 🎉 Success! Created ${projectName} at ${projectDir}

@@ -31,17 +31,6 @@ jobs:
       
       - name: Build
         run: npm run build
-      
-      - name: Test build output
-        run: |
-          if [ ! -d "dist" ]; then
-            echo "Build failed: dist directory not found"
-            exit 1
-          fi
-          if [ ! -d "templates" ]; then
-            echo "Build failed: templates directory not found"
-            exit 1
-          fi
 
   publish:
     needs: validate
@@ -63,7 +52,9 @@ jobs:
         with:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
+        env:
+            # this is what setup-node uses to write ~/.npmrc
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Install dependencies
         run: npm ci
@@ -116,8 +107,14 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/**/*
-            templates/**/*
+            src/**/*
+            public/**/*
+            astro.config.mjs
+            package.json
+            index.js
+            tsconfig.json
+            tsconfig.node.json
+            .eslintrc.cjs
           body_path: CHANGELOG.md
           generate_release_notes: true
         env:

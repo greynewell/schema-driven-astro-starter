@@ -38,7 +38,7 @@ console.log('Found content:', content);
 	</style>
 
 	<article>
-		<img src="/logo.svg" alt="Astro Logo" class="logo" />
+		<img src="logo.svg" alt="Astro Logo" class="logo" />
 		{content && content.rendered ? (
 			<>
 				<div class="content" set:html={content.rendered.html} />
