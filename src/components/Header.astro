@@ -19,7 +19,9 @@ const mainSections = [
 <header>
   <nav>
     <div class="site-branding">
-      <h1>{websiteData.name}</h1>
+      <a href="/" class="brand-link" onclick="event.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'});">
+        <h1>{websiteData.name}</h1>
+      </a>
     </div>
     
     <ul class="nav-links">
@@ -36,4 +38,21 @@ const mainSections = [
       </span>
     ))}
   </nav>
-</header> 
+</header>
+
+<style>
+  .brand-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .brand-link:hover {
+    opacity: 0.8;
+  }
+
+  .brand-link::after {
+    display: none;
+  }
+</style> 

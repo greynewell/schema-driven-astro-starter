@@ -11,6 +11,34 @@ A production-ready starter kit that brings structured data, SEO optimization, an
 - **Performance**: Astro's zero JavaScript by default approach means your site loads instantly.
 - **Developer Experience**: Hot reloading, type checking, and intuitive development workflow.
 
+## ♿ Accessibility-First Design
+
+This starter kit is built with accessibility at its core, making it easier than ever to create inclusive web experiences:
+
+### 🎨 Visual Accessibility
+- **High Contrast Mode**: Toggle between standard and high contrast themes
+- **Reading Order Guide**: Visual guide for screen reader navigation
+- **Structural Navigation**: Keyboard shortcuts for landmark navigation
+- **Table of Contents**: Quick access to page structure
+
+### ⌨️ Keyboard Navigation
+- **Landmark Navigation**: Jump between major page sections (Shift + N/M/F/A/S/H)
+- **Visual Indicators**: Clear feedback when navigating landmarks
+- **Focus Management**: Proper focus handling for all interactive elements
+- **Skip Links**: Quick access to main content and navigation
+
+### 🎯 Screen Reader Support
+- **ARIA Landmarks**: Proper semantic structure for screen readers
+- **Reading Order**: Logical content flow for assistive technologies
+- **Descriptive Labels**: Clear and concise labels for all interactive elements
+- **Status Messages**: Clear feedback for dynamic content changes
+
+### 🌐 Universal Design
+- **Responsive Design**: Works seamlessly across all devices and screen sizes
+- **Color Contrast**: WCAG 2.1 compliant color combinations
+- **Text Scaling**: Support for user font size preferences
+- **Reduced Motion**: Respects user motion preferences
+
 ## 🚀 Quick Start
 
 ```bash

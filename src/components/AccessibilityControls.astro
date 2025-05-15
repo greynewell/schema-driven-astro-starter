@@ -1,0 +1,512 @@
+---
+import type { Website } from '../types/website';
+
+interface Props {
+  websiteData: Website;
+}
+
+const { websiteData } = Astro.props;
+
+// Define the accessibility features and their implementations
+const accessibilityFeatures = {
+  highContrast: {
+    name: 'High Contrast',
+    description: 'Toggle high contrast mode for better readability',
+    icon: '🌓',
+    action: 'toggleHighContrast'
+  },
+  readingOrder: {
+    name: 'Reading Order',
+    description: 'Show visual reading order guide',
+    icon: '📖',
+    action: 'toggleReadingOrder'
+  },
+  structuralNavigation: {
+    name: 'Structural Navigation',
+    description: 'Show structural navigation guide',
+    icon: '🧭',
+    action: 'toggleStructuralNav'
+  },
+  tableOfContents: {
+    name: 'Table of Contents',
+    description: 'Show table of contents',
+    icon: '📑',
+    action: 'toggleTableOfContents'
+  }
+};
+---
+
+<div class="accessibility-controls">
+  <button class="accessibility-toggle" aria-label="Accessibility Options">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      <path d="M2 12h20"/>
+    </svg>
+  </button>
+  
+  <div class="accessibility-menu">
+    <div class="menu-header">
+      <h2>Accessibility Options</h2>
+      <button class="close-button" aria-label="Close menu">×</button>
+    </div>
+    <div class="controls-grid">
+      {websiteData.accessibilityFeature?.map((feature) => {
+        const featureInfo = accessibilityFeatures[feature as keyof typeof accessibilityFeatures];
+        if (!featureInfo) return null;
+        
+        return (
+          <button
+            class="accessibility-button"
+            data-feature={feature}
+            data-action={featureInfo.action}
+            title={featureInfo.description}
+          >
+            <span class="icon">{featureInfo.icon}</span>
+            <span class="label">{featureInfo.name}</span>
+          </button>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<style>
+  .accessibility-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+  }
+
+  .accessibility-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease;
+  }
+
+  .accessibility-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .accessibility-menu {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    width: 300px;
+    background: var(--surface-1);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    color: var(--text-1);
+  }
+
+  .accessibility-controls.active .accessibility-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .menu-header h2 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--text-1);
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-1);
+    padding: 0.25rem;
+  }
+
+  .controls-grid {
+    padding: 1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .accessibility-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--surface-2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    color: var(--text-1);
+  }
+
+  .accessibility-button:hover {
+    background: var(--surface-3);
+  }
+
+  .accessibility-button.active {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  // Handle menu toggle
+  const controls = document.querySelector('.accessibility-controls');
+  const toggle = document.querySelector('.accessibility-toggle');
+  const closeButton = document.querySelector('.close-button');
+
+  toggle?.addEventListener('click', () => {
+    controls?.classList.add('active');
+  });
+
+  closeButton?.addEventListener('click', () => {
+    controls?.classList.remove('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!controls?.contains(e.target as Node)) {
+      controls?.classList.remove('active');
+    }
+  });
+
+  // Define landmark selectors
+  const landmarks: Record<string, string> = {
+    'n': 'nav, [role="navigation"]',
+    'm': 'main, [role="main"]',
+    'f': 'footer, [role="contentinfo"]',
+    'a': 'aside, [role="complementary"]',
+    's': 'section, [role="region"]',
+    'h': 'header, [role="banner"]'
+  };
+
+  // Handle keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    // Only trigger if Shift is pressed
+    if (!e.shiftKey) return;
+
+    const key = e.key.toLowerCase();
+    if (key in landmarks) {
+      e.preventDefault();
+      
+      // Find all matching landmarks
+      const elements = document.querySelectorAll(landmarks[key]);
+      if (elements.length === 0) return;
+
+      // Find the current active element
+      const activeElement = document.activeElement;
+      let currentIndex = -1;
+
+      // If an element is focused, find its index
+      if (activeElement instanceof HTMLElement) {
+        currentIndex = Array.from(elements).findIndex(el => el.contains(activeElement));
+      }
+
+      // Determine which element to focus
+      let targetElement;
+      if (currentIndex === -1 || currentIndex === elements.length - 1) {
+        // If no element is focused or we're at the last one, focus the first
+        targetElement = elements[0];
+      } else {
+        // Otherwise, focus the next one
+        targetElement = elements[currentIndex + 1];
+      }
+
+      // Focus the target element
+      if (targetElement instanceof HTMLElement) {
+        targetElement.focus();
+        
+        // Scroll the element into view
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Show a visual indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'landmark-indicator';
+        indicator.textContent = `Navigated to ${targetElement.tagName.toLowerCase()}`;
+        document.body.appendChild(indicator);
+        
+        // Remove the indicator after a delay
+        setTimeout(() => indicator.remove(), 2000);
+      }
+    }
+  });
+
+  // Handle accessibility feature toggles
+  document.querySelectorAll('.accessibility-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.getAttribute('data-action');
+      const feature = button.getAttribute('data-feature');
+      
+      switch (action) {
+        case 'toggleHighContrast':
+          document.documentElement.classList.toggle('high-contrast');
+          button.classList.toggle('active');
+          break;
+          
+        case 'toggleReadingOrder':
+          // Implement reading order visualization
+          const readingOrder = document.createElement('div');
+          readingOrder.className = 'reading-order-guide';
+          readingOrder.innerHTML = `
+            <div class="reading-order-content">
+              <h3>Reading Order Guide</h3>
+              <p>This guide shows the recommended reading order for screen readers and assistive technologies.</p>
+              <ol class="reading-order-list">
+                <li>Main Navigation</li>
+                <li>Page Title</li>
+                <li>Main Content</li>
+                <li>Sidebar (if present)</li>
+                <li>Footer</li>
+              </ol>
+            </div>
+          `;
+          document.body.appendChild(readingOrder);
+          setTimeout(() => readingOrder.remove(), 5000);
+          break;
+          
+        case 'toggleStructuralNav':
+          // Implement structural navigation guide
+          const structuralNav = document.createElement('div');
+          structuralNav.className = 'structural-nav-guide';
+          structuralNav.innerHTML = `
+            <div class="structural-nav-content">
+              <h3>Structural Navigation</h3>
+              <p>Use these keyboard shortcuts to navigate page landmarks:</p>
+              <ul>
+                <li>Navigation: <kbd>Shift + N</kbd></li>
+                <li>Main Content: <kbd>Shift + M</kbd></li>
+                <li>Footer: <kbd>Shift + F</kbd></li>
+                <li>Sidebar: <kbd>Shift + A</kbd></li>
+                <li>Section: <kbd>Shift + S</kbd></li>
+                <li>Header: <kbd>Shift + H</kbd></li>
+              </ul>
+              <p class="nav-tip">Press the shortcut multiple times to cycle through multiple instances of the same landmark.</p>
+            </div>
+          `;
+          document.body.appendChild(structuralNav);
+          setTimeout(() => structuralNav.remove(), 5000);
+          break;
+          
+        case 'toggleTableOfContents':
+          // Implement table of contents
+          const toc = document.createElement('div');
+          toc.className = 'table-of-contents';
+          const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+          toc.innerHTML = `
+            <div class="toc-content">
+              <h3>Table of Contents</h3>
+              <ul>
+                ${headings.map(heading => `
+                  <li style="margin-left: ${(parseInt(heading.tagName[1]) - 1) * 1}rem">
+                    <a href="#${heading.id || heading.textContent?.toLowerCase().replace(/\s+/g, '-')}">
+                      ${heading.textContent}
+                    </a>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `;
+          document.body.appendChild(toc);
+          setTimeout(() => toc.remove(), 5000);
+          break;
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  /* High contrast mode styles */
+  :root.high-contrast {
+    --text-1: #ffffff;
+    --text-2: #ffffff;
+    --surface-1: #000000;
+    --surface-2: #1a1a1a;
+    --surface-3: #2a2a2a;
+    --accent: #ffff00;
+    --accent-contrast: #000000;
+  }
+
+  /* Overlay styles for guides */
+  .reading-order-guide,
+  .structural-nav-guide,
+  .table-of-contents {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: #000000;
+  }
+
+  :root.high-contrast .reading-order-guide,
+  :root.high-contrast .structural-nav-guide,
+  :root.high-contrast .table-of-contents {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .reading-order-content,
+  .structural-nav-content,
+  .toc-content {
+    color: inherit;
+    min-width: 300px;
+  }
+
+  .reading-order-content h3,
+  .structural-nav-content h3,
+  .toc-content h3 {
+    color: inherit;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .reading-order-content p,
+  .structural-nav-content p {
+    color: #666666;
+    margin-bottom: 1.5rem;
+  }
+
+  :root.high-contrast .reading-order-content p,
+  :root.high-contrast .structural-nav-content p {
+    color: #cccccc;
+  }
+
+  .reading-order-list {
+    padding-left: 1.5rem;
+    margin: 0;
+  }
+
+  .reading-order-list li {
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+  }
+
+  .reading-order-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .toc-content ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc-content a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 0.25rem 0;
+  }
+
+  .toc-content a:hover {
+    color: #0066cc;
+  }
+
+  :root.high-contrast .toc-content a:hover {
+    color: #ffff00;
+  }
+
+  kbd {
+    background: #f0f0f0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #000000;
+  }
+
+  :root.high-contrast kbd {
+    background: #333333;
+    color: #ffffff;
+  }
+
+  /* Add a semi-transparent overlay behind modals */
+  .reading-order-guide::before,
+  .structural-nav-guide::before,
+  .table-of-contents::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  /* Landmark indicator styles */
+  .landmark-indicator {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    color: #000000;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    animation: fadeInOut 2s ease-in-out;
+  }
+
+  :root.high-contrast .landmark-indicator {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -1rem); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -1rem); }
+  }
+
+  .nav-tip {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 1rem;
+    color: #666666;
+  }
+
+  :root.high-contrast .nav-tip {
+    color: #cccccc;
+  }
+</style> 

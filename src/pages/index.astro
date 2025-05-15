@@ -1,9 +1,7 @@
 ---
 import type { Website } from '../types/website';
 import website from '../data/website/website.json';
-import JsonLd from '../components/JsonLd.astro';
-import Meta from '../components/Meta.astro';
-import Header from '../components/Header.astro';
+import Layout from '../components/Layout.astro';
 import { getCollection } from 'astro:content';
 
 // Type assertion to ensure website data matches our interface
@@ -16,111 +14,37 @@ const content = contentEntries.find(entry => entry.slug === 'index');
 console.log('Found content:', content);
 ---
 
-<html lang={websiteData.inLanguage}>
-	<head>
-		<Meta
-			title={websiteData.name}
-			description={websiteData.description}
-			url={websiteData.url}
-			image={websiteData.thumbnailUrl}
-			author={websiteData.author}
-			publisher={websiteData.publisher}
-			datePublished={websiteData.datePublished}
-			dateModified={websiteData.dateModified}
-			keywords={websiteData.keywords}
-			language={websiteData.inLanguage}
-		/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<JsonLd data={websiteData} />
-		<link rel="stylesheet" href="/styles/global.css" />
-	</head>
-	<body>
-		<Header websiteData={websiteData} />
+<Layout websiteData={websiteData}>
+	<style slot="head">
+		.logo {
+			display: block;
+			margin: 2rem auto;
+			width: 90vw;
+			max-width: 460px;
+			height: auto;
+		}
 
-		<!-- Main Content Area -->
-		<main>
-			<article>
-				{content && content.rendered ? (
-					<>
-						<div class="content" set:html={content.rendered.html} />
-					</>
-				) : (
-					<p>No content found</p>
-				)}
-			</article>
-		</main>
+		@media (max-width: 768px) {
+			.logo {
+				margin: 1.5rem auto;
+			}
+		}
 
-		<!-- Footer Section -->
-		<footer>
-			<div>
-				<section aria-label="About This Site">
-					<h2>About This Site</h2>
-					<dl>
-						<dt>Language</dt>
-						<dd>{websiteData.inLanguage}</dd>
-						<dt>Version</dt>
-						<dd>{websiteData.version}</dd>
-						{websiteData.datePublished && (
-							<>
-								<dt>Published</dt>
-								<dd><time datetime={websiteData.datePublished}>{new Date(websiteData.datePublished).toLocaleDateString()}</time></dd>
-							</>
-						)}
-						{websiteData.dateModified && (
-							<>
-								<dt>Last Modified</dt>
-								<dd><time datetime={websiteData.dateModified}>{new Date(websiteData.dateModified).toLocaleDateString()}</time></dd>
-							</>
-						)}
-					</dl>
-				</section>
+		@media (max-width: 480px) {
+			.logo {
+				margin: 1rem auto;
+			}
+		}
+	</style>
 
-				<section aria-label="Site Credits">
-					<h2>Credits</h2>
-					{websiteData.author && (
-						<div>
-							<h3>Author</h3>
-							<p>{websiteData.author.name}</p>
-							{websiteData.author.url && (
-								<a href={websiteData.author.url}>Author's Website</a>
-							)}
-						</div>
-					)}
-
-					{websiteData.publisher && (
-						<div>
-							<h3>Publisher</h3>
-							<p>{websiteData.publisher.name}</p>
-							{websiteData.publisher.url && (
-								<a href={websiteData.publisher.url}>Publisher's Website</a>
-							)}
-						</div>
-					)}
-
-					{websiteData.license && (
-						<div>
-							<h3>License</h3>
-							<p>{websiteData.license}</p>
-						</div>
-					)}
-				</section>
-
-				{websiteData.accessibilitySummary && (
-					<section aria-label="Accessibility">
-						<h2>Accessibility</h2>
-						<p>{websiteData.accessibilitySummary}</p>
-						{websiteData.accessibilityFeature && websiteData.accessibilityFeature.length > 0 && (
-							<ul>
-								{websiteData.accessibilityFeature.map((feature) => (
-									<li>{feature}</li>
-								))}
-							</ul>
-						)}
-					</section>
-				)}
-			</div>
-		</footer>
-	</body>
-</html>
+	<article>
+		<img src="/logo.svg" alt="Astro Logo" class="logo" />
+		{content && content.rendered ? (
+			<>
+				<div class="content" set:html={content.rendered.html} />
+			</>
+		) : (
+			<p>No content found</p>
+		)}
+	</article>
+</Layout>
