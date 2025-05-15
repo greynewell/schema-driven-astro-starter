@@ -1,0 +1,55 @@
+---
+import type { Website } from '../types/website';
+import Meta from './Meta.astro';
+import JsonLd from './JsonLd.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import AccessibilityControls from './AccessibilityControls.astro';
+
+interface Props {
+  websiteData: Website;
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  websiteData,
+  title = websiteData.name,
+  description = websiteData.description,
+  image = "/logo.svg"
+} = Astro.props;
+---
+
+<html lang={websiteData.inLanguage}>
+  <head>
+    <Meta
+      title={title}
+      description={description}
+      url={websiteData.url}
+      image={image}
+      author={websiteData.author}
+      publisher={websiteData.publisher}
+      datePublished={websiteData.datePublished}
+      dateModified={websiteData.dateModified}
+      keywords={websiteData.keywords}
+      language={websiteData.inLanguage}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <JsonLd data={websiteData} />
+    <link rel="stylesheet" href="/global.css" />
+    <slot name="head" />
+  </head>
+  <body>
+    <Header websiteData={websiteData} />
+    <AccessibilityControls websiteData={websiteData} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer websiteData={websiteData} />
+  </body>
+</html> 

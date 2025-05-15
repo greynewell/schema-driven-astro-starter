@@ -1,0 +1,50 @@
+---
+import type { Website } from '../types/website';
+import website from '../data/website/website.json';
+import Layout from '../components/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Type assertion to ensure website data matches our interface
+const websiteData = website as Website;
+
+// Get the markdown content
+const contentEntries = await getCollection('pages');
+console.log('Content entries:', contentEntries);
+const content = contentEntries.find(entry => entry.slug === 'index');
+console.log('Found content:', content);
+---
+
+<Layout websiteData={websiteData}>
+	<style slot="head">
+		.logo {
+			display: block;
+			margin: 2rem auto;
+			width: 90vw;
+			max-width: 460px;
+			height: auto;
+		}
+
+		@media (max-width: 768px) {
+			.logo {
+				margin: 1.5rem auto;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.logo {
+				margin: 1rem auto;
+			}
+		}
+	</style>
+
+	<article>
+		<img src="/logo.svg" alt="Astro Logo" class="logo" />
+		{content && content.rendered ? (
+			<>
+				<div class="content" set:html={content.rendered.html} />
+			</>
+		) : (
+			<p>No content found</p>
+		)}
+	</article>
+</Layout>
