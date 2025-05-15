@@ -1,0 +1,88 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Schema-Driven Astro Starter",
+  "url": "http://localhost:4321",
+  "description": "A modern, schema-driven website built with Astro and Decap CMS, featuring structured data and a powerful content management system.",
+  "inLanguage": "en-US",
+  "version": "1.0.0",
+  "author": {
+    "@type": "Person",
+    "name": "Grey Newell",
+    "url": "https://greynewell.com"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Grey Newell",
+    "url": "https://greynewell.com"
+  },
+  "datePublished": "2024-03-20T00:00:00.000Z",
+  "dateModified": "2024-03-20T00:00:00.000Z",
+  "keywords": [
+    "astro",
+    "schema.org",
+    "decap-cms",
+    "typescript",
+    "web development",
+    "content management"
+  ],
+  "license": "MIT",
+  "isAccessibleForFree": true,
+  "accessibilityFeature": [
+    "highContrast",
+    "readingOrder",
+    "structuralNavigation",
+    "tableOfContents"
+  ],
+  "accessibilityHazard": [
+    "none"
+  ],
+  "accessibilityAPI": "ARIA",
+  "accessibilityControl": [
+    "fullKeyboardControl",
+    "fullMouseControl",
+    "fullTouchControl"
+  ],
+  "accessibilitySummary": "This website is designed to be accessible to all users, including those using assistive technologies. It features high contrast, clear navigation, and full keyboard support.",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "42"
+  },
+  "potentialAction": [
+    {
+      "@type": "SearchAction",
+      "target": "http://localhost:4321/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  ],
+  "sameAs": [
+    "https://github.com/greynewell/schema-driven-astro-starter",
+    "https://greynewell.com"
+  ],
+  "mainEntity": {
+    "@type": "WebPage",
+    "name": "Schema-Driven Astro Starter",
+    "description": "A modern, schema-driven website built with Astro and Decap CMS",
+    "url": "http://localhost:4321"
+  },
+  "specialty": "Web Development",
+  "slogan": "Building better websites with structured data",
+  "sponsor": {
+    "@type": "Person",
+    "name": "Grey Newell",
+    "url": "https://greynewell.com"
+  },
+  "subjectOf": {
+    "@type": "CreativeWork",
+    "name": "Schema-Driven Development Guide",
+    "url": "http://localhost:4321/guide"
+  },
+  "text": "Welcome to the Schema-Driven Astro Starter! This template demonstrates how to build modern websites with structured data and a powerful CMS.",
+  "thumbnailUrl": "http://localhost:4321/images/thumbnail.jpg",
+  "timeRequired": "PT5M",
+  "typicalAgeRange": "18-65",
+  "urlTemplate": "http://localhost:4321/{path}"
+} 
