@@ -1,0 +1,73 @@
+---
+import type { Website } from '../types/website';
+
+interface Props {
+  websiteData: Website;
+}
+
+const { websiteData } = Astro.props;
+---
+
+<footer>
+  <div>
+    <section aria-label="About This Site">
+      <h2>About This Site</h2>
+      <dl>
+        <dt>Language</dt>
+        <dd>{websiteData.inLanguage}</dd>
+        <dt>Version</dt>
+        <dd>{websiteData.version}</dd>
+        {websiteData.datePublished && (
+          <>
+            <dt>Published</dt>
+            <dd><time datetime={websiteData.datePublished}>{new Date(websiteData.datePublished).toLocaleDateString()}</time></dd>
+          </>
+        )}
+        {websiteData.dateModified && (
+          <>
+            <dt>Last Modified</dt>
+            <dd><time datetime={websiteData.dateModified}>{new Date(websiteData.dateModified).toLocaleDateString()}</time></dd>
+          </>
+        )}
+        {websiteData.publisher && (
+          <>
+            <dt>Publisher</dt>
+            <dd>
+              {websiteData.publisher.url ? (
+                <a href={websiteData.publisher.url}>{websiteData.publisher.name}</a>
+              ) : (
+                websiteData.publisher.name
+              )}
+            </dd>
+          </>
+        )}
+      </dl>
+    </section>
+
+    <section aria-label="Site Author">
+      {websiteData.author && (
+        <div>
+          <h2>Author</h2>
+          <p>{websiteData.author.name}</p>
+          {websiteData.author.url && (
+            <a href={websiteData.author.url}>Author's Website</a>
+          )}
+        </div>
+      )}
+
+      {websiteData.license && (
+        <div>
+          <h3>License</h3>
+          <p>{websiteData.license}</p>
+        </div>
+      )}
+    </section>
+
+    {websiteData.accessibilitySummary && (
+      <section aria-label="Accessibility">
+        <h2>Accessibility</h2>
+        <p>{websiteData.accessibilitySummary}</p>
+      </section>
+    )}
+  </div>
+</footer> 

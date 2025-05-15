@@ -3,18 +3,9 @@ title: Schema-Driven Astro Starter - Complete Guide
 description: A comprehensive guide to getting started with our schema-driven website template built with Astro
 ---
 
-# Schema-Driven Astro Starter: Your Complete Guide
+# Schema-Driven Astro Starter
 
 Welcome to the Schema-Driven Astro Starter! This powerful template combines the flexibility of Astro with the structure of schema-driven development to create maintainable, type-safe, and scalable websites. Let's dive into what makes this starter special and how to get started.
-
-## What is Schema-Driven Development?
-
-Schema-driven development is a modern approach to web development that uses structured schemas to define your content and components. This approach offers several key benefits:
-
-- **Type Safety**: Catch errors at build time rather than runtime
-- **Consistency**: Ensure your content follows predefined structures
-- **Developer Experience**: Get autocomplete and validation in your IDE
-- **Maintainability**: Make changes with confidence knowing your schema will catch issues
 
 ## Why Choose This Starter?
 
@@ -26,6 +17,44 @@ This starter template is designed to help you build websites faster while mainta
 - **Markdown Content**: Easy content management with markdown files
 - **SEO Optimized**: Built-in SEO features and best practices
 - **Accessible**: Follows accessibility guidelines by default
+
+
+## 🎯 Built-in Accessibility Features
+
+This starter template comes with comprehensive accessibility features built right in, making it easier than ever to create inclusive web experiences:
+
+### 🎨 Visual Accessibility
+- **High Contrast Mode**: Toggle between standard and high contrast themes for better readability
+- **Reading Order Guide**: Visual guide showing the recommended reading order for screen readers
+- **Structural Navigation**: Keyboard shortcuts to navigate page landmarks (Shift + N/M/F/A/S/H)
+- **Table of Contents**: Quick access to page structure and navigation
+
+### ⌨️ Keyboard Navigation
+- **Landmark Navigation**: Jump between major page sections using keyboard shortcuts
+- **Visual Indicators**: Clear feedback when navigating between landmarks
+- **Focus Management**: Proper focus handling for all interactive elements
+- **Skip Links**: Quick access to main content and navigation
+
+### 🎯 Screen Reader Support
+- **ARIA Landmarks**: Proper semantic structure for screen readers
+- **Reading Order**: Logical content flow for assistive technologies
+- **Descriptive Labels**: Clear and concise labels for all interactive elements
+- **Status Messages**: Clear feedback for dynamic content changes
+
+### 🌐 Universal Design
+- **Responsive Design**: Works seamlessly across all devices and screen sizes
+- **Color Contrast**: WCAG 2.1 compliant color combinations
+- **Text Scaling**: Support for user font size preferences
+- **Reduced Motion**: Respects user motion preferences
+
+## What is Schema-Driven Development?
+
+Schema-driven development is a modern approach to web development that uses structured schemas to define your content and components. This approach offers several key benefits:
+
+- **Type Safety**: Catch errors at build time rather than runtime
+- **Consistency**: Ensure your content follows predefined structures
+- **Developer Experience**: Get autocomplete and validation in your IDE
+- **Maintainability**: Make changes with confidence knowing your schema will catch issues
 
 ## Getting Started
 
