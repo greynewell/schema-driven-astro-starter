@@ -68,8 +68,6 @@
     "description": "A modern, schema-driven website built with Astro and Decap CMS",
     "url": "http://localhost:4321"
   },
-  "specialty": "Web Development",
-  "slogan": "Building better websites with structured data",
   "sponsor": {
     "@type": "Person",
     "name": "Grey Newell",
@@ -83,6 +81,5 @@
   "text": "Welcome to the Schema-Driven Astro Starter! This template demonstrates how to build modern websites with structured data and a powerful CMS.",
   "thumbnailUrl": "http://localhost:4321/images/thumbnail.jpg",
   "timeRequired": "PT5M",
-  "typicalAgeRange": "18-65",
-  "urlTemplate": "http://localhost:4321/{path}"
+  "typicalAgeRange": "18-65"
 } 

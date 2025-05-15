@@ -1,0 +1,15 @@
+---
+import type { JsonLdProps } from '../types/website';
+
+interface Props extends JsonLdProps {}
+
+const { data, debug = false } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />
+
+{debug && (
+  <div style="display: none;">
+    <pre>{JSON.stringify(data, null, 2)}</pre>
+  </div>
+)} 
