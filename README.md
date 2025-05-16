@@ -7,6 +7,13 @@
 
 A production-ready starter kit that brings structured data, SEO optimization, and schema-driven development to your Astro projects. Built for developers who want to ship fast, maintainable, and search-engine friendly websites.
 
+## Demo
+
+<img width="100%" alt="Schema-Driven Astro Starter Kit on Desktop" src="https://github.com/user-attachments/assets/5f7c882b-6b9f-48b8-8a50-d4a9768b80e3" />
+
+[Explore the Schema-Driven Astro Starter Demo](https://greynewell.github.io/schema-driven-astro-starter/)
+
+
 ## 🎯 Why This Starter Kit?
 
 - **Schema-First Development**: Define your data structures once, use them everywhere. No more prop drilling or type mismatches.
